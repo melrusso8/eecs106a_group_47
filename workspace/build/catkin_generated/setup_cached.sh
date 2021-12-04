@@ -7,7 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/eecs106a/eecs106a_group_47/workspace/devel:$CMAKE_PREFIX_PATH"
 export PWD="/home/eecs106a/eecs106a_group_47/workspace/build"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/eecs106a/eecs106a_group_47/workspace/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/eecs106a/eecs106a_group_47/workspace/src:$ROS_PACKAGE_PATH"

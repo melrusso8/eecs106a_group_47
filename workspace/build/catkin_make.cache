@@ -1,2 +1,2 @@
-drone_application
+comm_tcp:drone_application
 -DCATKIN_DEVEL_PREFIX=/home/eecs106a/eecs106a_group_47/workspace/devel -DCMAKE_INSTALL_PREFIX=/home/eecs106a/eecs106a_group_47/workspace/install -G Unix Makefiles

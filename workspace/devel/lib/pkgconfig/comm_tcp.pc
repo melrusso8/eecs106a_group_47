@@ -1,0 +1,8 @@
+prefix=/home/eecs106a/eecs106a_group_47/workspace/devel
+
+Name: comm_tcp
+Description: Description of comm_tcp
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/eecs106a/eecs106a_group_47/workspace/devel/lib 
+Requires: 
