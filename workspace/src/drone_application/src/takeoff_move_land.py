@@ -7,7 +7,6 @@ from geometry_msgs.msg import Twist
 
 def takeoff():
         pub = rospy.Publisher("ardrone/takeoff", Empty, queue_size=10 )
-        rospy.init_node('takeoff', anonymous=True)
         rate = rospy.Rate(10)
         t_end = time.time() + 7
         while time.time() < t_end:
@@ -16,7 +15,6 @@ def takeoff():
 
 def turn_in_place():
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
-        #rospy.init_node('cmd_vel', anonymous=True)
         rate = rospy.Rate(10)
         command_rotate = Twist()
         command_rotate.angular.z = 0.2 # spin the drone
@@ -27,7 +25,6 @@ def turn_in_place():
 
 def move_forward():
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
-        #rospy.init_node('cmd_vel', anonymous=True)
         rate = rospy.Rate(10)
         command_move = Twist()
         command_move.linear.x = 0.2 # move drone forwards
@@ -37,7 +34,6 @@ def move_forward():
 
 def land():
         pub = rospy.Publisher("ardrone/land", Empty, queue_size=10 )
-        #rospy.init_node('land', anonymous=True)
         rate = rospy.Rate(10) # 10hz
         t_end = time.time() + 7
         while time.time() < t_end:
@@ -45,6 +41,8 @@ def land():
 	        rate.sleep()
 
 if __name__ == '__main__':
+        rospy.init_node('drone_test1', anonymous=True)
+
         try:
           print("Taking off")
           takeoff()
