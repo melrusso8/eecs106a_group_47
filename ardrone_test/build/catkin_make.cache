@@ -1,2 +1,0 @@
-drone_application
--DCATKIN_DEVEL_PREFIX=/home/eecs106a/project/devel -DCMAKE_INSTALL_PREFIX=/home/eecs106a/project/install -G Unix Makefiles

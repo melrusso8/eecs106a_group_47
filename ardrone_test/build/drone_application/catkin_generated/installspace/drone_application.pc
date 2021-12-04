@@ -1,8 +1,0 @@
-prefix=/home/eecs106a/project/install
-
-Name: drone_application
-Description: Description of drone_application
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/eecs106a/project/install/lib 
-Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/eecs106a/eecs106a_group_47/workspace/install
+
+Name: drone_application
+Description: Description of drone_application
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/eecs106a/eecs106a_group_47/workspace/install/lib 
+Requires: 
