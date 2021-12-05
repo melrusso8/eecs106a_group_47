@@ -13,7 +13,7 @@ def takeoff():
 	        pub.publish(Empty())
 	        rate.sleep()
 
-def turn_in_place():
+def turn_in_place(angle):
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
         rate = rospy.Rate(10)
         command_rotate = Twist()
@@ -23,7 +23,7 @@ def turn_in_place():
 	        pub.publish(command_rotate)
 	        rate.sleep()
 
-def move_forward():
+def move_forward(distance): 
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
         rate = rospy.Rate(10)
         command_move = Twist()
@@ -50,12 +50,12 @@ if __name__ == '__main__':
           pass 
         # try:
         #   print("Turning in place")
-        #   turn_in_place()
+        #   turn_in_place(1)
         # except rospy.ROSInterruptException:
         #   pass
         try:
           print("Moving forward")
-          move_forward()
+          move_forward(1)
         except rospy.ROSInterruptException:
           pass
         try:
