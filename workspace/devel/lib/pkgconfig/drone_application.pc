@@ -1,8 +1,8 @@
-prefix=/home/eecs106a/eecs106a_group_47/workspace/devel
+prefix=/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/devel
 
 Name: drone_application
 Description: Description of drone_application
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/eecs106a/eecs106a_group_47/workspace/devel/lib 
+Libs: -L${prefix}/lib 
 Requires: 
