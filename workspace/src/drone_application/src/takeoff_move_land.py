@@ -10,18 +10,18 @@ def takeoff():
         rate = rospy.Rate(10)
         t_end = time.time() + 7
         #while time.time() < t_end:
-	        pub.publish(Empty())
-	        rate.sleep()
+        pub.publish(Empty())
+        rate.sleep()
 
 def turn_in_place():
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10, latch=True)
         rate = rospy.Rate(10)
         command_rotate = Twist()
-        command_rotate.angular.z = 0.2 # spin the drone
+        command_rotate.angular.z = 0.4 # spin the drone
         t_end = time.time() + 3
         #while time.time() < t_end:
-	        pub.publish(command_rotate)
-	        rate.sleep()
+        pub.publish(command_rotate)
+        rate.sleep()
 
 def move_forward():
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10, latch=True)
@@ -37,8 +37,8 @@ def land():
         rate = rospy.Rate(10) # 10hz
         t_end = time.time() + 7
         #while time.time() < t_end:
-	        pub.publish(Empty())
-	        rate.sleep()
+        pub.publish(Empty())
+        rate.sleep()
 
 if __name__ == '__main__':
         rospy.init_node('drone_test1', anonymous=True)
@@ -46,14 +46,15 @@ if __name__ == '__main__':
         try:
           print("Taking off")
           takeoff()
-          time.sleep(3)
+          time.sleep(2)
         except rospy.ROSInterruptException:
           pass 
-        # try:
-        #   print("Turning in place")
-        #   turn_in_place(1)
-        # except rospy.ROSInterruptException:
-        #   pass
+        try:
+          print("Turning in place")
+          turn_in_place()
+          time.sleep(4)
+        except rospy.ROSInterruptException:
+          pass
         try:
           print("Moving forward")
           move_forward()

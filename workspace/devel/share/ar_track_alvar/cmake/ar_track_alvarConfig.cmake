@@ -67,14 +67,14 @@ set(ar_track_alvar_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(ar_track_alvar_SOURCE_PREFIX /home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar)
-  set(ar_track_alvar_DEVEL_PREFIX /home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/devel)
+  set(ar_track_alvar_SOURCE_PREFIX /home/eecs106a/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar)
+  set(ar_track_alvar_DEVEL_PREFIX /home/eecs106a/eecs106a_group_47/workspace/devel)
   set(ar_track_alvar_INSTALL_PREFIX "")
   set(ar_track_alvar_PREFIX ${ar_track_alvar_DEVEL_PREFIX})
 else()
   set(ar_track_alvar_SOURCE_PREFIX "")
   set(ar_track_alvar_DEVEL_PREFIX "")
-  set(ar_track_alvar_INSTALL_PREFIX /home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/install)
+  set(ar_track_alvar_INSTALL_PREFIX /home/eecs106a/eecs106a_group_47/workspace/install)
   set(ar_track_alvar_PREFIX ${ar_track_alvar_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(ar_track_alvar_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/devel/include;/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar/include " STREQUAL " ")
+if(NOT "/home/eecs106a/eecs106a_group_47/workspace/devel/include;/home/eecs106a/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar/include " STREQUAL " ")
   set(ar_track_alvar_INCLUDE_DIRS "")
-  set(_include_dirs "/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/devel/include;/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar/include")
+  set(_include_dirs "/home/eecs106a/eecs106a_group_47/workspace/devel/include;/home/eecs106a/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT "http://ros.org/wiki/ar_track_alvar " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/w
         message(FATAL_ERROR "Project 'ar_track_alvar' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'ar_track_alvar' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'ar_track_alvar' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/eecs106a/eecs106a_group_47/workspace/src/ar_track_alvar/ar_track_alvar/${idir}'.  ${_report}")
     endif()
     _list_append_unique(ar_track_alvar_INCLUDE_DIRS ${include})
   endforeach()
@@ -123,29 +123,6 @@ foreach(library ${libraries})
     list(APPEND ar_track_alvar_LIBRARIES ${library})
   elseif(${library} MATCHES "^-l")
     list(APPEND ar_track_alvar_LIBRARIES ${library})
-  elseif(${library} MATCHES "^-")
-    # This is a linker flag/option (like -pthread)
-    # There's no standard variable for these, so create an interface library to hold it
-    if(NOT ar_track_alvar_NUM_DUMMY_TARGETS)
-      set(ar_track_alvar_NUM_DUMMY_TARGETS 0)
-    endif()
-    # Make sure the target name is unique
-    set(interface_target_name "catkin::ar_track_alvar::wrapped-linker-option${ar_track_alvar_NUM_DUMMY_TARGETS}")
-    while(TARGET "${interface_target_name}")
-      math(EXPR ar_track_alvar_NUM_DUMMY_TARGETS "${ar_track_alvar_NUM_DUMMY_TARGETS}+1")
-      set(interface_target_name "catkin::ar_track_alvar::wrapped-linker-option${ar_track_alvar_NUM_DUMMY_TARGETS}")
-    endwhile()
-    add_library("${interface_target_name}" INTERFACE IMPORTED)
-    if("${CMAKE_VERSION}" VERSION_LESS "3.13.0")
-      set_property(
-        TARGET
-        "${interface_target_name}"
-        APPEND PROPERTY
-        INTERFACE_LINK_LIBRARIES "${library}")
-    else()
-      target_link_options("${interface_target_name}" INTERFACE "${library}")
-    endif()
-    list(APPEND ar_track_alvar_LIBRARIES "${interface_target_name}")
   elseif(TARGET ${library})
     list(APPEND ar_track_alvar_LIBRARIES ${library})
   elseif(IS_ABSOLUTE ${library})
@@ -154,7 +131,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/cc/ee106a/fl21/class/ee106a-aal/ros_workspaces/eecs106a_group_47/workspace/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/eecs106a/eecs106a_group_47/workspace/devel/lib;/home/eecs106a/eecs106a_group_47/workspace/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
