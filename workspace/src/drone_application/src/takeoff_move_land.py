@@ -51,7 +51,7 @@ if __name__ == '__main__':
           pass 
         # try:
         #   print("Turning in place")
-        #   turn_in_place()
+        #   turn_in_place(1)
         # except rospy.ROSInterruptException:
         #   pass
         try:
