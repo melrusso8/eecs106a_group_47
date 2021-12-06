@@ -14,9 +14,9 @@ def land_drone():
         t_end = time.time() + 7
         while time.time() < t_end:
 	        pub.publish(Empty())
-	        rate.sleep()
+			rate.sleep()
 
-def distribute_seeds();
+def distribute_seeds():
 		######### do the thing and distribute seeds ##########
 
 
