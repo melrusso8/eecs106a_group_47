@@ -39,7 +39,7 @@ def move_forward():
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10, latch=True)
         rate = rospy.Rate(10)
         command_move = Twist()
-        command_move.linear.x = 0.1 # move drone forwards
+        command_move.linear.x = 0.01 # move drone forwards
 
         pub.publish(command_move)
         #rate.sleep()
@@ -74,12 +74,12 @@ if __name__ == '__main__':
         #   time.sleep(4)
         # except rospy.ROSInterruptException:
         #   pass
-        # try:
-        #   print("Moving forward")
-        #   move_forward()
-        #   time.sleep(3)
-        # except rospy.ROSInterruptException:
-        #   pass
+        try:
+          print("Moving forward")
+          move_forward()
+          time.sleep(5)
+        except rospy.ROSInterruptException:
+          pass
         try:
           print("Landing")
           land()

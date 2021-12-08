@@ -7,60 +7,59 @@ from std_msgs.msg import String
 from std_msgs.msg import Empty
 from geometry_msgs.msg import Twist
 
-
+def takeoff():
+        pub = rospy.Publisher("ardrone/takeoff", Empty, queue_size=10, latch=True)
+        rate = rospy.Rate(10)
+        pub.publish(Empty())
 
 def land_drone():
         pub_land = rospy.Publisher("ardrone/land", Empty, queue_size=10, latch=True)
         rate = rospy.Rate(10) # 10hz
         pub_land.publish(Empty())
 
-def distribute_seeds():
-		######### do the thing and distribute seeds ##########
-
-
-
-# send list of twists to drone to move between marked AR tag locations and distribute seeds
-# Arguments:
-#		tag_locations - a list body frames for every detected tag from mapping
+#def distribute_seeds():
 def execute_path(goal_frame):
-		#create publisher for drone commands
-		pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
-		tfBuffer = tf2_ros.Buffer()
-  		tfListener = tf2_ros.TransformListener(tfBuffer)
+        takeoff()
 
-  		#define rate for message transmission and area error for drone
+		    #create publisher for drone commands
+        pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
+        tfBuffer = tf2_ros.Buffer()
+        tfListener = tf2_ros.TransformListener(tfBuffer)
+
+  		  #define rate for message transmission and area error for drone
         rate = rospy.Rate(10)
         area_error = 0.1
         x_diff = 1000
         y_diff = 1000
         K1 = 0.3
-  		K2 = 1
+        K2 = 1
 
     	# move drone to position while the error between the drone's position and goal frame is above a certain threshold
-    	while x_diff >= area_error and y_diff >= area_error:
-    		try:
-    			trans = tfBuffer.lookup_transform("ardrone_base_link", goal_frame, rospy.Time())
+        while x_diff >= area_error and y_diff >= area_error and not rospy.is_shutdown():
+            try:
+              trans = tfBuffer.lookup_transform("ardrone_base_link", goal_frame, rospy.Time())
 
-		      	# Process trans to get your state error
-		      	x_diff = trans.transform.translation.x
-		      	y_diff = trans.transform.translation.y
+            	# Process trans to get your state error
+              x_diff = trans.transform.translation.x
+              y_diff = trans.transform.translation.y
+              print(x_diff)
+              print(y_diff)
 
-		      	# Generate a control command to send to the robot
-		      	control_command = Twist()
-		      	control_command.linear.x = x_diff*K1
-		      	control_command.linear.y = y_diff*K2
+            	# Generate a control command to send to the robot
+              control_command = Twist()
+              control_command.linear.x = x_diff*K1
+              control_command.linear.y = y_diff*K2
+              pub.publish(control_command)
+            except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+              pass
 
-		      	pub.publish(control_command)
-		    except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-		      pass
+	      #r.sleep()
 
-	      	r.sleep()
+    		# Distribute seeds once drone has centered over tag
+    		#distribute_seeds()
 
-		# Distribute seeds once drone has centered over tag
-		#distribute_seeds()
-
-		# Land drone after last tag has been planted
-		land_drone()
+    		# Land drone after last tag has been planted
+        land_drone()
 
 if __name__ == '__main__':
         rospy.init_node('drone_controller', anonymous=True)
