@@ -19,7 +19,7 @@ def land_drone():
 
 #def distribute_seeds():
 def execute_path(goal_frame):
-        takeoff()
+        #takeoff()
 
 		    #create publisher for drone commands
         pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
@@ -33,10 +33,12 @@ def execute_path(goal_frame):
         y_diff = 1000
         K1 = 0.3
         K2 = 1
-
+        print("Entering while loop")
     	# move drone to position while the error between the drone's position and goal frame is above a certain threshold
-        while x_diff >= area_error and y_diff >= area_error and not rospy.is_shutdown():
+        #while x_diff >= area_error and y_diff >= area_error and not rospy.is_shutdown():
+        while not rospy.is_shutdown():
             try:
+              print("Doing try statement")
               trans = tfBuffer.lookup_transform("ardrone_base_link", goal_frame, rospy.Time())
 
             	# Process trans to get your state error
@@ -50,16 +52,21 @@ def execute_path(goal_frame):
               control_command.linear.x = x_diff*K1
               control_command.linear.y = y_diff*K2
               pub.publish(control_command)
-            except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+            except tf2_ros.LookupException:
+              print("LookupException Occured")
+            except tf2_ros.ConnectivityException:
+              print("ConnectivityException Occured")
+            except tf2_ros.ExtrapolationException:
+              print("ExtrapolationException Occured")
               pass
-
+        print("Exiting while loop")
 	      #r.sleep()
 
     		# Distribute seeds once drone has centered over tag
     		#distribute_seeds()
 
     		# Land drone after last tag has been planted
-        land_drone()
+        #land_drone()
 
 if __name__ == '__main__':
         rospy.init_node('drone_controller', anonymous=True)
