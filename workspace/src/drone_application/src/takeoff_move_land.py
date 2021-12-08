@@ -58,7 +58,7 @@ if __name__ == '__main__':
         try:
           print("Taking off")
           takeoff()
-          time.sleep(7)
+          time.sleep(5)
         except rospy.ROSInterruptException:
           pass 
 
@@ -74,12 +74,12 @@ if __name__ == '__main__':
         #   time.sleep(4)
         # except rospy.ROSInterruptException:
         #   pass
-        try:
-          print("Moving forward")
-          move_forward()
-          time.sleep(3)
-        except rospy.ROSInterruptException:
-          pass
+        # try:
+        #   print("Moving forward")
+        #   move_forward()
+        #   time.sleep(3)
+        # except rospy.ROSInterruptException:
+        #   pass
         try:
           print("Landing")
           land()
