@@ -68,18 +68,18 @@ if __name__ == '__main__':
         #   #time.sleep(7)
         # except rospy.ROSInterruptException:
         #   pass
-        # try:
-        #   print("Turning in place")
-        #   turn_in_place()
-        #   time.sleep(4)
-        # except rospy.ROSInterruptException:
-        #   pass
         try:
-          print("Moving forward")
-          move_forward()
-          time.sleep(5)
+          print("Turning in place")
+          turn_in_place()
+          time.sleep(4)
         except rospy.ROSInterruptException:
           pass
+        # try:
+        #   print("Moving forward")
+        #   move_forward()
+        #   time.sleep(5)
+        # except rospy.ROSInterruptException:
+        #   pass
         try:
           print("Landing")
           land()
