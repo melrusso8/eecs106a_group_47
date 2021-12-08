@@ -28,24 +28,26 @@ def execute_path(goal_frame):
 
   		  #define rate for message transmission and area error for drone
         rate = rospy.Rate(10)
-        area_error = 0.1
+        area_error = 0.2
         x_diff = 1000
         y_diff = 1000
-        K1 = 0.3
+        K1 = 1
         K2 = 1
         print("Entering while loop")
     	# move drone to position while the error between the drone's position and goal frame is above a certain threshold
         #while x_diff >= area_error and y_diff >= area_error and not rospy.is_shutdown():
-        while not rospy.is_shutdown():
+        while abs(x_diff) >= area_error and abs(y_diff) >= area_error:
             try:
-              print("Doing try statement")
+              #print("Doing try statement")
               trans = tfBuffer.lookup_transform("ardrone_base_link", goal_frame, rospy.Time())
 
             	# Process trans to get your state error
               x_diff = trans.transform.translation.x
               y_diff = trans.transform.translation.y
-              print(x_diff)
-              print(y_diff)
+
+              print("x difference: " + str(x_diff))
+              print("y difference: " + str(y_diff))
+              print("")
 
             	# Generate a control command to send to the robot
               control_command = Twist()
@@ -59,6 +61,9 @@ def execute_path(goal_frame):
             except tf2_ros.ExtrapolationException:
               print("ExtrapolationException Occured")
               pass
+
+            time.sleep(0.1)
+            
         print("Exiting while loop")
 	      #r.sleep()
 
