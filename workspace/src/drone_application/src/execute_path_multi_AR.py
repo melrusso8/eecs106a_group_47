@@ -25,7 +25,6 @@ def takeoff():
         pub.publish(Empty())
 
 def land_drone():
-		print("Landing drone")
 		pub_land.publish(Empty())
 		rate = rospy.Rate(10) # 10hz
 		pub = rospy.Publisher("ardrone/land", Empty, queue_size=10, latch=True)
@@ -33,19 +32,20 @@ def land_drone():
 		t_end = time.time() + duration
 		while time.time() <  t_end:
 			pub.publish(Empty())
+
 #def distribute_seeds():
+
+
 def execute_path(goal_frame):
-		print("Taking off")
-		takeoff()
-		zero_out_params()
-		time.sleep(7)
-		print("Done taking off")
-		    #create publisher for drone commands
+		print("______ Planting " + goal_frame + " ______")
+		print("")
+
+	    #create publisher for drone commands
 		pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
 		tfBuffer = tf2_ros.Buffer()
 		tfListener = tf2_ros.TransformListener(tfBuffer)
 
-  		  #define rate for message transmission and area error for drone
+  		#define rate for message transmission and area error for drone
 		rate = rospy.Rate(10)
 		area_error = 0.05
 		x_diff = 1000
@@ -86,14 +86,45 @@ def execute_path(goal_frame):
 			time.sleep(0.1)
 
 		print("Exiting while loop")
-		land_drone()
+		print("distributing seeds...")
+		time.sleep(5)
+
+
 
 if __name__ == '__main__':
+		#intialize drone controller node
         rospy.init_node('drone_controller', anonymous=True)
 
+        #create list of tags to plant
+        tags_to_plant = [0] * (len(sys.argv) - 1)
+
+        for idx in range(1, len(sys.argv)):
+        	tags_to_plant[idx - 1] = sys.argv[idx]
+
+    	print("the tags that will be planted are: " + str(tags_to_plant) + "(in that order)")
+        
+
         try:
-          print("Starting Drone Control to Execute Path")
-          execute_path(sys.argv[1]) #### ---------> need to figure out where this variable will come from
+			#takeoff and zero out parameters for hovering
+			print("********** Taking off **********")
+			print("")
+			#takeoff()
+			zero_out_params()
+			print("********** Done taking off **********")
+			print("")
+			time.sleep(4)
+
+			#move to each tag in order of input: locate and distribute seeds
+			print("**** Starting Drone Control to Execute Path ****")
+			print("")
+			time.sleep(1)
+			for tag in tags_to_plant:
+				execute_path(tag)
+
+			#land the drone once all tags are accounted for
+			print("********** landing drone **********")
+			print("")
+			#land_drone()
 
         except rospy.ROSInterruptException:
           pass
