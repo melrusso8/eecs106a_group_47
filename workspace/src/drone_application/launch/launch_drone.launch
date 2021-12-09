@@ -25,4 +25,6 @@
                 <param name="realtime_video" value="True" />
                 <param name="looprate" value="30" />
         </node>
+		
+		<node pkg="ardrone_autonomy" type="rosservice" name="togglecam" args="call --wait /toggle_cam" />
 </launch>
