@@ -84,8 +84,9 @@ def execute_path(goal_frame):
 
 			time.sleep(0.1)
 
-		print("Exiting while loop")
+		#print("Exiting while loop")
 		print("distributing seeds...")
+		print("")
 		time.sleep(5)
 
 
@@ -169,7 +170,7 @@ if __name__ == '__main__':
 			#move to each tag in order of input: locate and distribute seeds
 			print("**** Starting Drone Control to Execute Path ****")
 			print("")
-			time.sleep(1)
+			time.sleep(4)
 			for tag in tags_to_plant_shortest:
 				execute_path(tag)
 
