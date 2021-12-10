@@ -3,10 +3,14 @@ import rospy
 import time
 import tf2_ros
 import sys
+import ctypes
 import numpy as np
 from std_msgs.msg import String
 from std_msgs.msg import Empty
 from geometry_msgs.msg import Twist
+from ctypes import cdll
+
+distribute_lib = cdll.LoadLibrary('/home/eecs106a/eecs106a_group_47/workspace/src/comm_esp/src/libdistribute.so')
 
 def zero_out_params():
 		pub = rospy.Publisher("cmd_vel", Twist, queue_size=10, latch=True)
@@ -52,7 +56,6 @@ def execute_path(goal_frame):
 		K1 = 0.2
 		K2 = 0.2
 
-		print("Entering while loop")
 	    # move drone to position while the error between the drone's position and goal frame is above a certain threshold
 		#while not rospy.is_shutdown():
 		while abs(x_diff) >= area_error and abs(y_diff) >= area_error:
@@ -84,16 +87,23 @@ def execute_path(goal_frame):
 
 			time.sleep(0.1)
 
-		#print("Exiting while loop")
-		print("distributing seeds...")
+		#call C file to signal microcontroller to distribute seeds
+		return_val = distribute_lib.distribute_seeds()
+		time.sleep(5)
+		print("finished with return value: " + str(return_val))
 		print("")
 		time.sleep(5)
 
 
 
 if __name__ == '__main__':
+
 		#intialize drone controller node
         rospy.init_node('drone_controller', anonymous=True)
+
+        #connect to ESP32
+        distribute_lib.connect_to_mcu()
+        time.sleep(4)
 
         #create list of tags to plant
         tags_to_plant = [0] * (len(sys.argv) - 1)
@@ -102,7 +112,11 @@ if __name__ == '__main__':
         	tags_to_plant[idx - 1] = sys.argv[idx]
 
     	print("the tags that will be planted are: " + str(tags_to_plant) + "(according to shortest path)")
-        
+    	print("")
+        time.sleep(1)
+        print("calculating shortest path...")
+        print("")
+
 
         #create list according to shortest path
         tags_to_plant_shortest = [0] * len(tags_to_plant)
@@ -160,7 +174,9 @@ if __name__ == '__main__':
         	#takeoff and zero out parameters for hovering
 			print("********** Taking off **********")
 			print("")
+			print("Shortest Path calculated: ")
 			print(tags_to_plant_shortest)
+			print("")
 			#takeoff()
 			zero_out_params()
 			print("********** Done taking off **********")
