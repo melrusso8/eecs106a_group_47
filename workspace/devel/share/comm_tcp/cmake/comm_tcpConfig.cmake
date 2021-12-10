@@ -67,14 +67,19 @@ set(comm_tcp_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
+<<<<<<< HEAD
   set(comm_tcp_SOURCE_PREFIX /home/eecs106a/eecs106a_group_47/workspace/src/comm_esp)
   set(comm_tcp_DEVEL_PREFIX /home/eecs106a/eecs106a_group_47/workspace/devel)
+=======
+  set(comm_tcp_SOURCE_PREFIX /home/eecs106a/project_workspace/eecs106a_group_47/workspace/src/comm_esp)
+  set(comm_tcp_DEVEL_PREFIX /home/eecs106a/project_workspace/eecs106a_group_47/workspace/devel)
+>>>>>>> 0e38f8984ebf4be5c8ca302f5cb0872da03236e0
   set(comm_tcp_INSTALL_PREFIX "")
   set(comm_tcp_PREFIX ${comm_tcp_DEVEL_PREFIX})
 else()
   set(comm_tcp_SOURCE_PREFIX "")
   set(comm_tcp_DEVEL_PREFIX "")
-  set(comm_tcp_INSTALL_PREFIX /home/eecs106a/eecs106a_group_47/workspace/install)
+  set(comm_tcp_INSTALL_PREFIX /home/eecs106a/project_workspace/eecs106a_group_47/workspace/install)
   set(comm_tcp_PREFIX ${comm_tcp_INSTALL_PREFIX})
 endif()
 
@@ -110,7 +115,11 @@ if(NOT " " STREQUAL " ")
         message(FATAL_ERROR "Project 'comm_tcp' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
+<<<<<<< HEAD
       message(FATAL_ERROR "Project 'comm_tcp' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/eecs106a/eecs106a_group_47/workspace/src/comm_esp/${idir}'.  ${_report}")
+=======
+      message(FATAL_ERROR "Project 'comm_tcp' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/eecs106a/project_workspace/eecs106a_group_47/workspace/src/comm_esp/${idir}'.  ${_report}")
+>>>>>>> 0e38f8984ebf4be5c8ca302f5cb0872da03236e0
     endif()
     _list_append_unique(comm_tcp_INCLUDE_DIRS ${include})
   endforeach()
@@ -131,7 +140,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/eecs106a/eecs106a_group_47/workspace/devel/lib;/home/eecs106a/eecs106a_group_47/workspace/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/eecs106a/project_workspace/eecs106a_group_47/workspace/devel/lib;/home/eecs106a/baxter_ws/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
