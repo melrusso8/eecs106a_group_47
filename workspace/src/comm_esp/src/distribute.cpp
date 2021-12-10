@@ -27,6 +27,7 @@ void error(const char *msg) {
 
 
 extern "C" int distribute_seeds() {
+    printf("%s\n", "Made it inside C file to distribute seeds");
     int sockfd, portno, n, choice = 1;
     struct sockaddr_in serv_addr;
     struct hostent *server;

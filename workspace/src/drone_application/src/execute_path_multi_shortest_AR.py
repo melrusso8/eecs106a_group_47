@@ -10,7 +10,7 @@ from std_msgs.msg import Empty
 from geometry_msgs.msg import Twist
 from ctypes import cdll
 
-distribute_lib = cdll.LoadLibrary('./../../comm_esp/src/libdistribute.so')
+distribute_lib = cdll.LoadLibrary('/home/eecs106a/eecs106a_group_47/workspace/src/comm_esp/src/libdistribute.so')
 
 def zero_out_params():
 		pub = rospy.Publisher("cmd_vel", Twist, queue_size=10, latch=True)
@@ -90,7 +90,11 @@ def execute_path(goal_frame):
 
 		#print("Exiting while loop")
 		print("distributing seeds...")
-		distribute_lib.distribute_seeds()
+		time.sleep(3)
+
+		#call C file to signal microcontroller to distribute seeds
+		return_val = distribute_lib.distribute_seeds()
+		print("finished with return value: " + str(return_val))
 		print("")
 		time.sleep(5)
 
