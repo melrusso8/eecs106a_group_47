@@ -3,6 +3,7 @@ import rospy
 import time
 import tf2_ros
 import sys
+import ctypes
 import numpy as np
 from std_msgs.msg import String
 from std_msgs.msg import Empty
