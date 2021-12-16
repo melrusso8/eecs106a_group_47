@@ -2,7 +2,7 @@
 #include <HCSR04.h>
 #define ONBOARD_LED 13
 #define trigPin 27
-#define echoPin 24
+#define echoPin 34
 UltraSonicDistanceSensor distanceSensor(trigPin, echoPin);
 float previous_val;
 float current_val;
