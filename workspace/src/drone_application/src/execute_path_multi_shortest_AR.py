@@ -30,7 +30,6 @@ def takeoff():
         pub.publish(Empty())
 
 def land_drone():
-		pub_land.publish(Empty())
 		rate = rospy.Rate(10) # 10hz
 		pub = rospy.Publisher("ardrone/land", Empty, queue_size=10, latch=True)
 		duration = 3
@@ -105,6 +104,16 @@ if __name__ == '__main__':
         distribute_lib.connect_to_mcu()
         time.sleep(4)
 
+        #take off drone
+        print("********** drone taking off **********")
+        print("")
+        # takeoff()
+        # time.sleep(3)
+        # zero_out_params()
+        # time.sleep(2)
+        print("********** drone ready **********")
+
+
         #create list of tags to plant
         tags_to_plant = [0] * (len(sys.argv) - 1)
 
@@ -171,15 +180,8 @@ if __name__ == '__main__':
 			idx = idx + 1
 
         try:
-        	#takeoff and zero out parameters for hovering
-			print("********** Taking off **********")
-			print("")
 			print("Shortest Path calculated: ")
 			print(tags_to_plant_shortest)
-			print("")
-			#takeoff()
-			zero_out_params()
-			print("********** Done taking off **********")
 			print("")
 			time.sleep(4)
 
