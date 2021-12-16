@@ -30,7 +30,6 @@ def takeoff():
         pub.publish(Empty())
 
 def land_drone():
-		pub_land.publish(Empty())
 		rate = rospy.Rate(10) # 10hz
 		pub = rospy.Publisher("ardrone/land", Empty, queue_size=10, latch=True)
 		duration = 3
@@ -104,6 +103,7 @@ if __name__ == '__main__':
         #connect to ESP32
         distribute_lib.connect_to_mcu()
         time.sleep(4)
+        #takeoff()
 
         #create list of tags to plant
         tags_to_plant = [0] * (len(sys.argv) - 1)
@@ -177,7 +177,6 @@ if __name__ == '__main__':
 			print("Shortest Path calculated: ")
 			print(tags_to_plant_shortest)
 			print("")
-			#takeoff()
 			zero_out_params()
 			print("********** Done taking off **********")
 			print("")
@@ -193,7 +192,7 @@ if __name__ == '__main__':
 			#land the drone once all tags are accounted for
 			print("********** landing drone **********")
 			print("")
-			#land_drone()
+			# land_drone()
 
         except rospy.ROSInterruptException:
           pass
