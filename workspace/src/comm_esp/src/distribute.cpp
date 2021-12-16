@@ -14,7 +14,7 @@ struct sockaddr_in serv_addr;
 struct hostent *server;
 char buffer[1];
 uint port_num = 8088;
-const char *host_name = "192.168.1.4"; // ---------> subject to change?
+const char *host_name = "192.168.1.3"; // ---------> subject to change?
 bool echoMode = true; //want terminal to read back values
 
 // send characters to start and stop seed distrubution
@@ -52,20 +52,25 @@ extern "C" int connect_to_mcu(){
 }
 
 extern "C" int distribute_seeds() {
+
     printf("%s\n", "Made it inside C file to distribute seeds...");
     printf("%c\n", start_seed);
     //write message to microntroller to begin seed distribution
-    n = write(sockfd, &start_seed, 1);
+    buffer[0] = 'a';
+    while (buffer[0] != 'z') {
+        n = write(sockfd, &start_seed, 1);
 
-    if (n < 0) 
-         error("ERROR writing to socket");
-    if (echoMode) {
-		bzero(buffer, 1);
-	    n = read(sockfd,buffer, 1);
-	    if (n < 0)
-			error("ERROR reading reply");
-	    //printf("%s\n", buffer);
+        if (n < 0) 
+            error("ERROR writing to socket");
+    //if (echoMode) {
+	   bzero(buffer, 1);
+	   n = read(sockfd,buffer, 1);
+	   if (n < 0)
+	       error("ERROR reading reply");
+	   printf("%s\n", buffer);
     }
+    buffer[0] = 'a';
+    //}
 
     //zero out buffer
     //bzero(buffer, 1);
